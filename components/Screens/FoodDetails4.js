@@ -4,18 +4,17 @@ import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from '../../mystyle/styles';
 
-export const FoodDetails = ({ navigation }) => {
+export const FoodDetails4 = ({ navigation }) => {
   const [ingredients, setIngredients] = useState([]);
   const [editingIndex, setEditingIndex] = useState(null);
   const [tempText, setTempText] = useState('');
-  //Load saved ingredients when the component mounts
+
   useEffect(() => {
     const loadIngredients = async () => {
-      const storedIngredients = await AsyncStorage.getItem('ingredientsList');
+      const storedIngredients = await AsyncStorage.getItem('ingredientsList4');
       if (storedIngredients) {
         setIngredients(JSON.parse(storedIngredients));
       } else {
-        //Default ingredients if none are saved
         setIngredients([
           'Lorem Ipsum 1',
           'Lorem Ipsum 2',
@@ -29,7 +28,7 @@ export const FoodDetails = ({ navigation }) => {
   }, []);
   //Save ingredients to AsyncStorage
   const saveIngredients = async (updatedIngredients) => {
-    await AsyncStorage.setItem('ingredientsList', JSON.stringify(updatedIngredients));
+    await AsyncStorage.setItem('ingredientsList4', JSON.stringify(updatedIngredients));
     setIngredients(updatedIngredients);
   };
   //Start Editing
@@ -42,7 +41,7 @@ export const FoodDetails = ({ navigation }) => {
     if (tempText.trim() !== '') {
       const updatedIngredients = [...ingredients];
       updatedIngredients[index] = tempText;
-      saveIngredients(updatedIngredients); //Save to AsyncStorage
+      saveIngredients(updatedIngredients); //Save to FoodDetails2 storage
       setEditingIndex(null);
     }
   };
@@ -51,13 +50,14 @@ export const FoodDetails = ({ navigation }) => {
     <SafeAreaView style={{ flex: 1, backgroundColor: '#FDFFF0' }}>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
         <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
+          
           <View style={styles.fooddeetHeader}>
             <TouchableOpacity style={{ padding: 5, marginTop: '10%', marginRight: '80%' }}>
               <Ionicons onPress={() => navigation.navigate('BtnNav')} name="arrow-back" size={24} color="#333" />
             </TouchableOpacity>
           </View>
           <View style={styles.foodDetail}>
-            <Image source={require('../../assets/KNRR_0069.png')} style={{ width: 300, height: 150, borderRadius: 30 }} />
+            <Image source={require('../../assets/Pakbet.jpg')} style={{ width: 300, height: 150, borderRadius: 30 }} />
           </View>
           <View style={styles.divider} />
           <View style={styles.titleContainer}>
@@ -117,6 +117,4 @@ export const FoodDetails = ({ navigation }) => {
   );
 };
 
-export default FoodDetails;
-
-
+export default FoodDetails4;

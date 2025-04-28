@@ -4,18 +4,17 @@ import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from '../../mystyle/styles';
 
-export const FoodDetails = ({ navigation }) => {
+export const FoodDetails6 = ({ navigation }) => {
   const [ingredients, setIngredients] = useState([]);
   const [editingIndex, setEditingIndex] = useState(null);
   const [tempText, setTempText] = useState('');
-  //Load saved ingredients when the component mounts
+
   useEffect(() => {
     const loadIngredients = async () => {
-      const storedIngredients = await AsyncStorage.getItem('ingredientsList');
+      const storedIngredients = await AsyncStorage.getItem('ingredientsList6');
       if (storedIngredients) {
         setIngredients(JSON.parse(storedIngredients));
       } else {
-        //Default ingredients if none are saved
         setIngredients([
           'Lorem Ipsum 1',
           'Lorem Ipsum 2',
@@ -27,22 +26,25 @@ export const FoodDetails = ({ navigation }) => {
     };
     loadIngredients();
   }, []);
+
   //Save ingredients to AsyncStorage
   const saveIngredients = async (updatedIngredients) => {
-    await AsyncStorage.setItem('ingredientsList', JSON.stringify(updatedIngredients));
+    await AsyncStorage.setItem('ingredientsList6', JSON.stringify(updatedIngredients)); 
     setIngredients(updatedIngredients);
   };
+
   //Start Editing
   const handleEdit = (index) => {
     setEditingIndex(index);
     setTempText(ingredients[index]);
   };
+
   //Save Edited Ingredient
   const handleSave = (index) => {
     if (tempText.trim() !== '') {
       const updatedIngredients = [...ingredients];
       updatedIngredients[index] = tempText;
-      saveIngredients(updatedIngredients); //Save to AsyncStorage
+      saveIngredients(updatedIngredients); //Save to FoodDetails2 storage
       setEditingIndex(null);
     }
   };
@@ -57,7 +59,7 @@ export const FoodDetails = ({ navigation }) => {
             </TouchableOpacity>
           </View>
           <View style={styles.foodDetail}>
-            <Image source={require('../../assets/KNRR_0069.png')} style={{ width: 300, height: 150, borderRadius: 30 }} />
+            <Image source={require('../../assets/Tinola.jpg')} style={{ width: 300, height: 150, borderRadius: 30 }} />
           </View>
           <View style={styles.divider} />
           <View style={styles.titleContainer}>
@@ -117,6 +119,4 @@ export const FoodDetails = ({ navigation }) => {
   );
 };
 
-export default FoodDetails;
-
-
+export default FoodDetails6;
